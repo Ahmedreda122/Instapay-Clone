@@ -7,6 +7,7 @@ public class Main {
   public static void main(String[] args) throws SQLException {
     View v = new ViewRegister();
     v.makeView();
+    // hallo
 
   }
 }
