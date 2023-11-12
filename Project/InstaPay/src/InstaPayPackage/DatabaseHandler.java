@@ -59,7 +59,7 @@ public class DatabaseHandler {
 //  }
 
 // Method to check is the user has an instapay account
-  public boolean ifLogin(InstapayAccount account) throws SQLException {
+  public boolean instapayAccountIsExisted(InstapayAccount account) throws SQLException {
     //    String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE obj.username = ? AND obj.password = ?";
     String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE username = ? AND password = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -77,7 +77,7 @@ public class DatabaseHandler {
     }
   }
 // check if the user's number phone is exist in either bank account or wallet
-  public boolean isExistNumPhone(InstapayAccount account) throws SQLException {
+  public boolean numPhoneUsedInAccount(InstapayAccount account) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM " + account.accountObject.getType()+ " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -92,8 +92,22 @@ public class DatabaseHandler {
       return false;
     }
   }
+
+  public boolean numPhoneIsRegistered(InstapayAccount account) throws SQLException {
+    String query = "SELECT COUNT(*) AS count FROM " + "InstaPayAccount" + " WHERE mobileNumber = ? ";
+//    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setString(1, account.getNumberPhone());
+      ResultSet resultSet = preparedStatement.executeQuery();
+      if (resultSet.next()) {
+        int count = resultSet.getInt("count");
+        return count == 1;
+      }
+      return false;
+    }
+  }
 // check if the username is duplicated as it's unique
-  public boolean isExistUserName(String userName) throws SQLException {
+  public boolean userNameIsRegistered(String userName) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE username = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, userName);

@@ -1,9 +1,9 @@
 package InstaPayPackage;
 import java.util.Scanner;
 public class InputUserData {
-    Scanner scanner = new Scanner(System.in);
+    public  Scanner scanner = new Scanner(System.in);
     String input;
-    public String enterUserName(){
+    public  String enterUserName(){
         System.out.println("Enter your username : ");
         input = scanner.nextLine();
         return input;
@@ -14,7 +14,7 @@ public class InputUserData {
         return input;
     }
     public String enterMobilePhone(){
-        System.out.println("Enter your username : ");
+        System.out.println("Enter your Mobile Phone : ");
         input = scanner.nextLine();
         return input;
     }

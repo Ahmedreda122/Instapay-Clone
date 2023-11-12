@@ -1,29 +1,28 @@
 package InstaPayPackage;
 
+import java.sql.SQLException;
+
 public class Authentication {
-        public  Authentication(){}
-//    create obj from class model --> will be private object
-
-        private Boolean mobilePhoneIsExist(String mobileP){
-
-            return true;
+        private DatabaseHandler databaseHandler;
+        public Authentication() throws SQLException {
+            databaseHandler = new DatabaseHandler();
         }
-        private Boolean usernameIsExist(String username){
-            //        call method in class model
-            return true;
-        }
-
-        //    parameter ---> InstapayAccount Account in register ==> (username + password +
+//    parameter ---> InstapayAccount Account in register ==> (username + password +
 //    Account(wallet | BankAccount))
-        public Boolean login(Object Account){
-//       call method in class model
-            return true;
+        public Boolean login(InstapayAccount account)throws SQLException{
+            return  databaseHandler.instapayAccountIsExisted(account);
         }
-        //    parameter ---> InstapayAccount Account in register ==> (username + password +
-//    Account(wallet | BankAccount))
-        public Boolean register(Object Account){
-//       call method in class model ---> insert Instapay Account
-            return true;
+        public boolean checkDataForRegister(InstapayAccount account) throws SQLException {
+            return (!databaseHandler.userNameIsRegistered(account.getUsername())) && Validation.passwordIsStrong(account.getPassword());
+        }
+//        this method to check in register ---> if number phone in wallet | in bank Account -->i sExistNumPhone
+//        we will check this number phone not registered before --> isNumPhoneRegistered
+        public boolean verifyingAccount(InstapayAccount account) throws SQLException {
+            return databaseHandler.numPhoneUsedInAccount(account) && (!databaseHandler.numPhoneIsRegistered(account));
+        }
+//    this method call insert in database after validate everything
+        public void register(InstapayAccount account) throws SQLException {
+                databaseHandler.insertInstapayAccount(account);
         }
 }
 
