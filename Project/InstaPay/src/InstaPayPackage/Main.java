@@ -10,12 +10,20 @@ public class Main {
       // create a database connection
       databaseHandler = new DatabaseHandler();
 
-      // Example: Insert records into the "wallet" table
 //      databaseHandler.insertRecord(new Object());
-      databaseHandler.retrieveRecord(new Object());
-      databaseHandler.updateRecord(new Object());
-      System.out.println(databaseHandler.checkLogin(new Object()));
-      System.out.println(databaseHandler.checkNumOrUsr(new Object(),false));
+      Account a = new Wallet();
+      InstapayAccount ia = new InstapayAccount(a);
+
+//      a.setBalance(123243);
+//      a.setMobilePhone("0117262334");
+//      System.out.println("type : " + a.getType());
+      System.out.println(databaseHandler.retrieveBalance(a));
+
+//      databaseHandler.updateRecord(new Object());
+//      System.out.println(databaseHandler.checkLogin(new Object()));
+//      System.out.println(databaseHandler.isExistNumPhone(new Object()));
+//      System.out.println(databaseHandler.isExistUser(new Object()));
+//      databaseHandler.insertRecord(a);
       // Other operations can be performed using methods in DatabaseHandler class
 
     } catch (SQLException e) {
