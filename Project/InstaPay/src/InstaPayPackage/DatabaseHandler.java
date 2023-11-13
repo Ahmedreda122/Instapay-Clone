@@ -1,11 +1,7 @@
 package InstaPayPackage;
-
 import java.sql.*;
-
 public class DatabaseHandler {
-
   private Connection connection;
-
   // Constructor to establish a SQLite database connection
   public DatabaseHandler() throws SQLException {
     String jdbcUrl = "jdbc:sqlite:" + "instapay.db";
@@ -120,9 +116,7 @@ public class DatabaseHandler {
       }
       return false;
     }
-
   }
-
   public boolean updateBalance(String tableName, double amount, String mobileNumber){
     String query = "UPDATE " + tableName + " SET balance = balance + ? WHERE mobileNumber = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
