@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) throws SQLException {
-    View v = new ViewRegister();
+    View v = new UserOptionsView();
     v.makeView();
     // hallo
 

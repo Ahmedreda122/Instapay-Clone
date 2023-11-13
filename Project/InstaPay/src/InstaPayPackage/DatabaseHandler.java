@@ -28,7 +28,7 @@ public class DatabaseHandler {
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getUsername());
       preparedStatement.setString(2, account.getPassword());
-      preparedStatement.setString(3, account.accountObject.getType());
+      preparedStatement.setString(3, account.getType());
       preparedStatement.setString(4, account.getNumberPhone());
       preparedStatement.executeUpdate();
     }
@@ -36,7 +36,7 @@ public class DatabaseHandler {
 
   // Method to retrieve a Balance
   public int retrieveBalance(InstapayAccount account) throws SQLException {
-    String query = "SELECT balance FROM " + account.accountObject.getType() + " WHERE mobileNumber = ?";
+    String query = "SELECT balance FROM " + account.getType() + " WHERE mobileNumber = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getNumberPhone());
 
@@ -78,7 +78,7 @@ public class DatabaseHandler {
   }
 // check if the user's number phone is exist in either bank account or wallet
   public boolean numPhoneUsedInAccount(InstapayAccount account) throws SQLException {
-    String query = "SELECT COUNT(*) AS count FROM " + account.accountObject.getType()+ " WHERE mobileNumber = ? ";
+    String query = "SELECT COUNT(*) AS count FROM " + account.getType()+ " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getNumberPhone());
@@ -123,6 +123,18 @@ public class DatabaseHandler {
 
   }
 
+  public boolean updateBalance(String tableName, double amount, String mobileNumber){
+    String query = "UPDATE " + tableName + " SET balance = balance + ? WHERE mobileNumber = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setDouble(1, amount);
+      preparedStatement.setString(2, mobileNumber);
+      preparedStatement.executeUpdate();
+      return true;
+    } catch (SQLException e) {
+      System.out.println("mobileNumber Does not exist in Wallet\n" + e);
+      return false;
+    }
+  }
   // Close the database connection
   public void closeConnection() throws SQLException {
     if (connection != null && !connection.isClosed()) {

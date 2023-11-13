@@ -4,13 +4,20 @@ public class InstapayAccount {
   private String username;
   private String password;
   private String numberPhone;
-  public Account accountObject;
+  private Account accountObject;
 
   public InstapayAccount() {
   }
 
   public InstapayAccount(Account account) {
     this.accountObject = account;
+  }
+  public String getType(){
+    return this.accountObject.getType();
+  }
+
+  public double getBalance(){
+    return this.accountObject.getBalance();
   }
 
   public void setUsername(String username) {
@@ -35,5 +42,9 @@ public class InstapayAccount {
 
   public String getNumberPhone() {
     return this.numberPhone;
+  }
+
+  public void setAccountObj(Account account){
+    this.accountObject = account;
   }
 }

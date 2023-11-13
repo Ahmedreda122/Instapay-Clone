@@ -18,4 +18,10 @@ public class InputUserData {
         input = scanner.nextLine();
         return input;
     }
+
+    public String enterYourOption(){
+        System.out.println("Enter Your Option (1-5):>");
+        input = scanner.nextLine();
+        return input;
+    }
 }

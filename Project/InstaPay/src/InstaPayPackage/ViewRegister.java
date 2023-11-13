@@ -5,8 +5,6 @@ import java.sql.SQLException;
 public class ViewRegister extends View{
     Authentication authentication;
     public ViewRegister() throws SQLException {
-        input = new InputUserData();
-        account = new InstapayAccount();
         authentication = new Authentication();
     }
     @Override
@@ -32,7 +30,7 @@ public class ViewRegister extends View{
                 break;
             } else System.out.println("This account type Not Exist.");
         }
-        account.accountObject = accountT;
+        account.setAccountObj(accountT);
         account.setNumberPhone(input.enterMobilePhone());
         if (authentication.verifyingAccount(account))
             authentication.register(account);

@@ -1,7 +1,7 @@
 package InstaPayPackage;
 
 public abstract class Account {
-    private int balance;
+    private double balance;
     private String type;
     private String mobilePhone;
     private int id;
@@ -9,7 +9,7 @@ public abstract class Account {
     public void setBalance(int balance) {
         this.balance = balance;
     }
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
