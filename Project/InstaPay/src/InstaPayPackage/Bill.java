@@ -28,7 +28,7 @@ public abstract class Bill {
     }
     public void GenerateInvoice(InstapayAccount accont)
     {
-        System.out.println("Invoice For : "+BillType+"\n"+"Cost : "+Cost+"Client Name : "+accont.getUsername()+"Status : Done ")
+        System.out.println("Invoice For : "+BillType+"\n"+"Cost : "+Cost+"Client Name : "+accont.getUsername()+"Status : Done ");
     }
     public abstract  void SetType(String Type);
 }
