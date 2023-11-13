@@ -5,6 +5,7 @@ import java.sql.SQLException;
 public class UserOptions {
     private DatabaseHandler DB;
     private InstapayAccount myAccount;
+
     public UserOptions(InstapayAccount account){
         this.myAccount = account;
         try {
@@ -12,6 +13,9 @@ public class UserOptions {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    InstapayAccount getMyAccount(){
+        return myAccount;
     }
     public boolean TransferToWallet(String mobileNumber, double money){
         return DB.updateBalance("Wallet", money, mobileNumber) &&
@@ -23,10 +27,15 @@ public class UserOptions {
     }
 
     public boolean AbilityToTransfer(double money){
-        //  System.out.println("Transfer failed: Your account balance is insufficient for this transaction.");
         return !(myAccount.getBalance() < money);
     }
-    public boolean Transfer(InstapayAccount recipientAccount, double money){
+    public boolean Transfer(String userName, double money){
+        InstapayAccount recipientAccount = DB.getInstapayAcc(userName);
+        if (recipientAccount == null){
+            System.out.println("This userName is not Exist");
+            return false;
+        }
+
         if (recipientAccount.getType().equals("Wallet")){
            return TransferToWallet(recipientAccount.getNumberPhone(), money);
         }
@@ -35,9 +44,9 @@ public class UserOptions {
         {
             return TransferToBankAcc(recipientAccount.getNumberPhone(), money);
         }
-//        else{
-//            System.out.println("You're trying to transfer money from your wallet to a bank account, which is not allowed.");
-//        }
+        else{
+            System.out.println("You're trying to transfer money from your wallet to a bank account, which is not allowed.");
+        }
         return false;
     }
 }

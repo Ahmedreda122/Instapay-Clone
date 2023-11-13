@@ -135,11 +135,53 @@ public class DatabaseHandler {
       return false;
     }
   }
+
+  public InstapayAccount getInstapayAcc(int mobileNumber) {
+    String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE mobileNumber  = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setString(1, String.valueOf(mobileNumber));
+      return retrieveAcc(preparedStatement);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public InstapayAccount getInstapayAcc(String userName) {
+    String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE username = ?";
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setString(1, userName);
+      return retrieveAcc(preparedStatement);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private InstapayAccount retrieveAcc(PreparedStatement preparedStatement) throws SQLException {
+    ResultSet resultSet = preparedStatement.executeQuery();
+    int count = resultSet.getInt("count");
+    if (count < 1){
+      return null;
+    }
+    InstapayAccount account = new InstapayAccount();
+    account.setNumberPhone(resultSet.getString("mobileNumber"));
+    account.setUsername(resultSet.getString("username"));
+    String accountType = resultSet.getString("accountType");
+    Account externalAccount = null;
+    if (accountType.equals("Wallet")){
+      externalAccount = new Wallet();
+    }
+    else if (accountType.equals("BankAccount")){
+      externalAccount = new BankAccount();
+    }
+    account.setAccountObj(externalAccount);
+    return account;
+  }
+
   // Close the database connection
   public void closeConnection() throws SQLException {
     if (connection != null && !connection.isClosed()) {
       connection.close();
     }
-
   }
 }
