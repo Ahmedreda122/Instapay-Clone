@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserOptionsView extends View{
-
     private UserOptions userOptions;
     private Authentication authenticatation;
 
