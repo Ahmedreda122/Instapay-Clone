@@ -1,10 +1,12 @@
 package InstaPayPackage;
+
 import java.sql.SQLException;
+
 public class Main {
   public static void main(String[] args) throws SQLException {
     InputUserData input = new InputUserData();
 
-    while(true) {
+    while (true) {
       System.out.println("1)Login\n2)Register\n3)Exist.");
       String op = input.enterYourOptionInMain();
       View c;
@@ -16,9 +18,9 @@ public class Main {
         c.makeView();
         c = new LoginView();
         c.makeView();
-      }else if(op.equals("3")){
+      } else if (op.equals("3")) {
         System.exit(0);
-      }else{
+      } else {
         System.out.println("Invalid option\nPlease try again.");
       }
     }

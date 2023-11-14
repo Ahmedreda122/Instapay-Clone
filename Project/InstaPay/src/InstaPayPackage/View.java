@@ -3,21 +3,22 @@ package InstaPayPackage;
 import java.sql.SQLException;
 
 public abstract class View {
-    InstapayAccount account;
-    InputUserData input;
-    Account accountT;
-    public View(){
-        input = new InputUserData();
-        account = new InstapayAccount();
-    }
+  InstapayAccount account;
+  InputUserData input;
+  Account accountT;
 
-    public void setAccount(InstapayAccount account) {
-        this.account = account;
-    }
+  public View() {
+    input = new InputUserData();
+    account = new InstapayAccount();
+  }
 
-    public InstapayAccount getAccount() {
-        return account;
-    }
+  public void setAccount(InstapayAccount account) {
+    this.account = account;
+  }
 
-    abstract void makeView() throws SQLException;
+  public InstapayAccount getAccount() {
+    return account;
+  }
+
+  abstract void makeView() throws SQLException;
 }

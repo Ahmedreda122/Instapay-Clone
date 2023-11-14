@@ -1,14 +1,17 @@
 package InstaPayPackage;
+
 import java.sql.*;
+
 public class DatabaseHandler {
   private Connection connection;
+
   // Constructor to establish a SQLite database connection
   public DatabaseHandler() throws SQLException {
     String jdbcUrl = "jdbc:sqlite:" + "instapay.db";
     this.connection = DriverManager.getConnection(jdbcUrl);
   }
 
-  //  method to insert instapayAccount --> Register
+  //  method to insert instapay Account --> Register
   public void insertInstapayAccount(InstapayAccount account) throws SQLException {
     String query = "INSERT INTO " + "InstaPayAccount" + " (username, password, accountType, mobileNumber) VALUES (?, ?, ?, ?)";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -30,6 +33,7 @@ public class DatabaseHandler {
       return resultSet.getInt("balance");
     }
   }
+
   // Method to check is the user has an instapay account
   public boolean instapayAccountIsExisted(InstapayAccount account) throws SQLException {
     //    String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE obj.username = ? AND obj.password = ?";
@@ -48,9 +52,10 @@ public class DatabaseHandler {
       return false;
     }
   }
+
   // check if the user's number phone is exist in either bank account or wallet
   public boolean numPhoneUsedInAccount(InstapayAccount account) throws SQLException {
-    String query = "SELECT COUNT(*) AS count FROM " + account.getType()+ " WHERE mobileNumber = ? ";
+    String query = "SELECT COUNT(*) AS count FROM " + account.getType() + " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getNumberPhone());
@@ -65,6 +70,7 @@ public class DatabaseHandler {
     }
   }
 
+//  check if the phone number is registered before in InstaPayAccount table
   public boolean numPhoneIsRegistered(InstapayAccount account) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM " + "InstaPayAccount" + " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
@@ -78,6 +84,7 @@ public class DatabaseHandler {
       return false;
     }
   }
+
   // check if the username is duplicated as it's unique
   public boolean userNameIsRegistered(String userName) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE username = ? ";
@@ -93,7 +100,8 @@ public class DatabaseHandler {
       return false;
     }
   }
-  public boolean updateBalance(String tableName, double amount, String mobileNumber){
+  // updating balance by increasing/decreasing
+  public boolean updateBalance(String tableName, double amount, String mobileNumber) {
     String query = "UPDATE " + tableName + " SET balance = balance + ? WHERE mobileNumber = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setDouble(1, amount);
@@ -106,15 +114,6 @@ public class DatabaseHandler {
     }
   }
 
-//  public void getInstapayAcc(String mobileNumber) {
-//    String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE mobileNumber  = ?";
-//    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//      preparedStatement.setString(1, mobileNumber);
-//      return retrieveAcc(preparedStatement);
-//    } catch (SQLException e) {
-//      throw new RuntimeException(e);
-//    }
-//  }
 
   public InstapayAccount getInstapayAcc(String userName) {
     String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE username = ?";
@@ -129,7 +128,7 @@ public class DatabaseHandler {
   private InstapayAccount retrieveAcc(PreparedStatement preparedStatement) throws SQLException {
     ResultSet resultSet = preparedStatement.executeQuery();
     int count = resultSet.getInt("count");
-    if (count < 1){
+    if (count < 1) {
       return null;
     }
     InstapayAccount account = new InstapayAccount();
@@ -137,10 +136,9 @@ public class DatabaseHandler {
     account.setNumberPhone(resultSet.getString("mobileNumber"));
     account.setUsername(resultSet.getString("username"));
     String accountType = resultSet.getString("accountType");
-    if (accountType.equals("Wallet")){
+    if (accountType.equals("Wallet")) {
       externalAccount = new Wallet();
-    }
-    else if (accountType.equals("BankAccount")){
+    } else if (accountType.equals("BankAccount")) {
       externalAccount = new BankAccount();
     }
     account.setAccountObj(externalAccount);

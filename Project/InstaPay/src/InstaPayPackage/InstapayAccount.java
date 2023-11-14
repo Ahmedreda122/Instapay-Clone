@@ -8,14 +8,12 @@ public class InstapayAccount {
 
   public InstapayAccount() {
   }
-  public InstapayAccount(Account account) {
-    this.accountObject = account;
-  }
-  public String getType(){
+
+  public String getType() {
     return this.accountObject.getType();
   }
 
-  public double getBalance(){
+  public double getBalance() {
     return this.accountObject.getBalance();
   }
 
@@ -43,7 +41,7 @@ public class InstapayAccount {
     return this.numberPhone;
   }
 
-  public void setAccountObj(Account account){
+  public void setAccountObj(Account account) {
     this.accountObject = account;
   }
 }

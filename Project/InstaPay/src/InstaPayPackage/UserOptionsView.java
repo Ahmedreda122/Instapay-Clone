@@ -10,10 +10,11 @@ public class UserOptionsView extends View {
     userOptions = new UserOptions(account);
     super.account = account;
   }
+
   @Override
   void makeView() throws SQLException {
     System.out.println(getAccount().getUsername() + " " + this.getAccount().getNumberPhone() + " "
-    + getAccount().getType());
+            + getAccount().getType());
     while (true) {
       System.out.println(
               "1. Transfer to another Instapay Account\n(You can Transfer to Bank Account only if You're Registered using Bank Account)\n" +
