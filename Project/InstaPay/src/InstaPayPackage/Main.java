@@ -2,7 +2,9 @@ package InstaPayPackage;
 import java.sql.SQLException;
 public class Main {
   public static void main(String[] args) throws SQLException {
+    View c = new LoginView();
     View v = new UserOptionsView();
+    c.makeView();
     v.makeView();
   }
 }

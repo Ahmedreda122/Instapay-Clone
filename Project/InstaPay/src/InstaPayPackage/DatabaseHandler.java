@@ -54,7 +54,7 @@ public class DatabaseHandler {
 //    }
 //  }
 
-// Method to check is the user has an instapay account
+  // Method to check is the user has an instapay account
   public boolean instapayAccountIsExisted(InstapayAccount account) throws SQLException {
     //    String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE obj.username = ? AND obj.password = ?";
     String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE username = ? AND password = ?";
@@ -72,7 +72,7 @@ public class DatabaseHandler {
       return false;
     }
   }
-// check if the user's number phone is exist in either bank account or wallet
+  // check if the user's number phone is exist in either bank account or wallet
   public boolean numPhoneUsedInAccount(InstapayAccount account) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM " + account.getType()+ " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
@@ -102,7 +102,7 @@ public class DatabaseHandler {
       return false;
     }
   }
-// check if the username is duplicated as it's unique
+  // check if the username is duplicated as it's unique
   public boolean userNameIsRegistered(String userName) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE username = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

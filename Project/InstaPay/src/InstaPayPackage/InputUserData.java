@@ -29,4 +29,11 @@ public class InputUserData {
         input = scanner.nextLine();
         return input;
     }
+
+    public String completeBill(String billType, double cost) {
+        System.out.println("This the "+ billType + "Cost: "+cost);
+        System.out.println("If you want to complete Paying "+billType+ ", Enter 1");
+        input = scanner.nextLine();
+        return input;
+    }
 }

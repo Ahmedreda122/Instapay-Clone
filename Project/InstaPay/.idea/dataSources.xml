@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="instapay" uuid="9604e21c-ea30-4819-bed4-41d0cc98fbe4">
+    <data-source source="LOCAL" name="instapay" uuid="4a4da430-b91f-417a-9772-13037857c090">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:I:\VSprojects\ProjectsOfThirdYear\SoftwareE2\InstapayProject\Project\InstaPay\instapay.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:F:\Soft 2 Assign 1\Project\InstaPay\instapay.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
