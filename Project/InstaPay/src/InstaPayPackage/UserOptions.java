@@ -5,6 +5,7 @@ import java.sql.SQLException;
 public class UserOptions {
     private DatabaseHandler DB;
     private InstapayAccount myAccount;
+    private Bill bill;
 
     public UserOptions(InstapayAccount account){
         this.myAccount = account;
@@ -16,6 +17,12 @@ public class UserOptions {
     }
     InstapayAccount getMyAccount(){
         return myAccount;
+    }
+    public Bill getBill(){
+        return this.bill;
+    }
+    public void setBill(Bill bill){
+        this.bill = bill;
     }
     public boolean TransferToWallet(String mobileNumber, double money){
         return DB.updateBalance("Wallet", money, mobileNumber) &&

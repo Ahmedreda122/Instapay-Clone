@@ -6,9 +6,8 @@ import java.sql.SQLException;
 public abstract class Bill {
     String BillType;
     double Cost;
-
     public Bill() {
-        Cost=GenerateCost();
+        Cost = GenerateCost();
     }
 
     public boolean AbilityToBill(InstapayAccount accont, int cost) throws SQLException {
@@ -26,9 +25,18 @@ public abstract class Bill {
         double Cost = (double) (Math.random() * (max - min + 1)) + min; // Generates a random double between 1 and 100
         return Cost;
     }
+
     public void GenerateInvoice(InstapayAccount accont)
     {
         System.out.println("Invoice For : "+BillType+"\n"+"Cost : "+Cost+"Client Name : "+accont.getUsername()+"Status : Done ");
     }
-    public abstract  void SetType(String Type);
+
+    public String getBillType() {
+        return BillType;
+    }
+
+    public double getCost() {
+        return Cost;
+    }
+
 }

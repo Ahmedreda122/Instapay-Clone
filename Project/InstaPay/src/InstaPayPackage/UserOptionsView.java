@@ -16,8 +16,8 @@ public class UserOptionsView extends View{
                 "1. Transfer to another Instapay Account\n(You can Transfer to Bank Account only if You're Registered using Bank Account)\n" +
                         "2. Transfer to Bank Account(Using MobileNumber)\n" +
                         "3. Transfer To a Mobile Wallet(Using MobileNumber)\n" +
-                        "4. Inquire about Your balance" +
-                        "5. Paying utilities’ bills, where such bills can be for Gas, Electricity, or Water.");
+                        "4. Inquire about Your balance\n" +
+                        "5. Paying utilities’ bills, where such bills can be for Gas, Electricity or Water.");
         int option = Integer.parseInt(super.input.enterYourOption());
         if (!(option >= 1 && option <= 5)) {
             System.out.println("Please, Try again");
@@ -27,8 +27,7 @@ public class UserOptionsView extends View{
         Scanner scanner = new Scanner(System.in);
         switch (option) {
             case 1, 2, 3 -> {
-                System.out.println("Enter The Amount you want to Transfer: ");
-                String moneyStr = scanner.nextLine();
+                String moneyStr = input.enterMoney();
                 double money = Double.parseDouble(moneyStr);
                 if (!userOptions.AbilityToTransfer(money)) {
                     System.out.println("Transfer failed: Your account balance is insufficient for this transaction.");
@@ -62,7 +61,28 @@ public class UserOptionsView extends View{
                 System.out.println("Your Balance is : " + userOptions.getMyAccount().getBalance());
             }
             case 5 -> {
-                System.out.println("PayBill");
+//                System.out.println("PayBill");
+                String op;
+                while(true){
+                    System.out.println("1.Water\n2.Gas\n3.Elec");
+                    op = super.input.enterYourOption();
+                    if(op.equals("1") || op.equals("2") || op.equals("3")){
+                       break;
+                    }
+                    System.out.println("Please, Try again");
+                }
+                // method factory and type of account
+                if(op.equals("1")){
+                    userOptions.setBill(new BillWater());
+                }else if(op.equals("2")){
+                    userOptions.setBill(new BillGas());
+                }else{
+                    userOptions.setBill(new BillElec());
+                }
+                String moneyStr = input.enterMoney();
+                double money = Double.parseDouble(moneyStr);
+                System.out.println(userOptions.getBill().getBillType());
+//                remind deposit from your account
             }
             default -> System.out.println("Invalid Option");
         }
