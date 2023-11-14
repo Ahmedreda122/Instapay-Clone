@@ -24,6 +24,10 @@ public class Authentication {
         public void register(InstapayAccount account) throws SQLException {
                 databaseHandler.insertInstapayAccount(account);
         }
+//     get myAccount
+    public InstapayAccount getMyInstapayAccount(String username){
+        return databaseHandler.getInstapayAcc(username);
+    }
 }
 
 

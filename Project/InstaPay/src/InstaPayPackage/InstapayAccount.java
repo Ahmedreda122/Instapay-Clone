@@ -8,7 +8,6 @@ public class InstapayAccount {
 
   public InstapayAccount() {
   }
-
   public InstapayAccount(Account account) {
     this.accountObject = account;
   }

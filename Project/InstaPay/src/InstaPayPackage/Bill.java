@@ -3,7 +3,7 @@ package InstaPayPackage;
 import java.sql.SQLException;
 // import java.util.Random;   
 
-public abstract class Bill {
+public abstract  class Bill {
     protected String BillType;
     double Cost;
     public Bill() {
@@ -25,8 +25,6 @@ public abstract class Bill {
         double Cost = (double) (Math.random() * (max - min + 1)) + min; // Generates a random double between 1 and 100
         return Cost;
     }
-
-
     public String getBillType() {
         return BillType;
     }

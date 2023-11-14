@@ -6,9 +6,6 @@ public abstract class Account {
     private String mobilePhone;
     private int id;
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
     public double getBalance() {
         return balance;
     }

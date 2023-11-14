@@ -8,16 +8,6 @@ public class DatabaseHandler {
     this.connection = DriverManager.getConnection(jdbcUrl);
   }
 
-  // Method to insert a record into(Account Wallet | BankAccount) the specified table
-//  public void insertRecord(Account account) throws SQLException {
-//    String query = "INSERT INTO " + account.getType() + " (balance, mobileNumber) VALUES (?, ?)";
-//    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//      preparedStatement.setInt(1, account.getBalance());
-//      preparedStatement.setString(2, account.getMobilePhone());
-//      preparedStatement.executeUpdate();
-//    }
-//  }
-
   //  method to insert instapayAccount --> Register
   public void insertInstapayAccount(InstapayAccount account) throws SQLException {
     String query = "INSERT INTO " + "InstaPayAccount" + " (username, password, accountType, mobileNumber) VALUES (?, ?, ?, ?)";
@@ -31,7 +21,7 @@ public class DatabaseHandler {
   }
 
   // Method to retrieve a Balance
-  public int retrieveBalance(InstapayAccount account) throws SQLException {
+  public double retrieveBalance(InstapayAccount account) throws SQLException {
     String query = "SELECT balance FROM " + account.getType() + " WHERE mobileNumber = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getNumberPhone());
@@ -40,20 +30,6 @@ public class DatabaseHandler {
       return resultSet.getInt("balance");
     }
   }
-// ***Waiting for Transfering Methods***
-
-//  public void updateRecord(InstapayAccount account) throws SQLException {
-//    // Assuming obj has properties type, id, and newBalance
-//    String query = "UPDATE " + account.accountObject.getType() + " SET balance = ? WHERE mobileNumber = ?";
-////    String query = "UPDATE " + "Wallet" + " SET balance = ? WHERE mobileNumber = ?";
-//    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-//      preparedStatement.setInt(1, 666);
-//      preparedStatement.setString(2, "01112223152");
-//
-//      preparedStatement.executeUpdate();
-//    }
-//  }
-
   // Method to check is the user has an instapay account
   public boolean instapayAccountIsExisted(InstapayAccount account) throws SQLException {
     //    String query = "SELECT COUNT(*) AS count FROM InstaPayAccount WHERE obj.username = ? AND obj.password = ?";
@@ -130,19 +106,18 @@ public class DatabaseHandler {
     }
   }
 
-  public InstapayAccount getInstapayAcc(int mobileNumber) {
-    String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE mobileNumber  = ?";
-    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-      preparedStatement.setString(1, String.valueOf(mobileNumber));
-      return retrieveAcc(preparedStatement);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
+//  public void getInstapayAcc(String mobileNumber) {
+//    String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE mobileNumber  = ?";
+//    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+//      preparedStatement.setString(1, mobileNumber);
+//      return retrieveAcc(preparedStatement);
+//    } catch (SQLException e) {
+//      throw new RuntimeException(e);
+//    }
+//  }
 
   public InstapayAccount getInstapayAcc(String userName) {
     String query = "SELECT * , COUNT(*) AS count FROM InstaPayAccount WHERE username = ?";
-
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, userName);
       return retrieveAcc(preparedStatement);
@@ -158,10 +133,10 @@ public class DatabaseHandler {
       return null;
     }
     InstapayAccount account = new InstapayAccount();
+    Account externalAccount = null;
     account.setNumberPhone(resultSet.getString("mobileNumber"));
     account.setUsername(resultSet.getString("username"));
     String accountType = resultSet.getString("accountType");
-    Account externalAccount = null;
     if (accountType.equals("Wallet")){
       externalAccount = new Wallet();
     }

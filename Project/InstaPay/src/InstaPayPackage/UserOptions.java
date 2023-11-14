@@ -32,10 +32,19 @@ public class UserOptions {
         return DB.updateBalance("BankAccount", money, mobileNumber) &&
         DB.updateBalance(myAccount.getType(), -money, myAccount.getNumberPhone());
     }
+//    for all cases
+//    public boolean Transfer(InstapayAccount AccountTo, double Money){
+//        return DB.updateBalance(AccountTo.getType(), Money, AccountTo.getNumberPhone()) &&
+//                DB.updateBalance(myAccount.getType(), -Money, myAccount.getNumberPhone());
+//    }
 
-    public boolean AbilityToTransfer(double money){
-        return !(myAccount.getBalance() < money);
+    public boolean AbilityToTransfer(double money) throws SQLException {
+        return !(getAccountBalance(myAccount) < money);
     }
+    public void payBill(InstapayAccount account, double cost){
+         DB.updateBalance(account.getType(), cost, account.getNumberPhone());
+    }
+
     public boolean Transfer(String userName, double money){
         InstapayAccount recipientAccount = DB.getInstapayAcc(userName);
         if (recipientAccount == null){
@@ -55,5 +64,9 @@ public class UserOptions {
             System.out.println("You're trying to transfer money from your wallet to a bank account, which is not allowed.");
         }
         return false;
+    }
+
+    public double getAccountBalance(InstapayAccount account) throws SQLException {
+        return DB.retrieveBalance(account);
     }
 }

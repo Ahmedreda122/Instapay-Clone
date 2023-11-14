@@ -20,7 +20,12 @@ public class InputUserData {
     }
 
     public String enterYourOption(){
-        System.out.println("Enter Your Option (1-5):>");
+        System.out.println("Enter Your Option (1-6):>");
+        input = scanner.nextLine();
+        return input;
+    }
+    public String enterYourOptionInMain(){
+        System.out.println("Enter Your Option (1-2):>");
         input = scanner.nextLine();
         return input;
     }

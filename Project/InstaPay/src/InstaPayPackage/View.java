@@ -10,5 +10,14 @@ public abstract class View {
         input = new InputUserData();
         account = new InstapayAccount();
     }
+
+    public void setAccount(InstapayAccount account) {
+        this.account = account;
+    }
+
+    public InstapayAccount getAccount() {
+        return account;
+    }
+
     abstract void makeView() throws SQLException;
 }
