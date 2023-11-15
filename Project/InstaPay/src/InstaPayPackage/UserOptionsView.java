@@ -18,14 +18,10 @@ public class UserOptionsView extends View {
                       "2. Transfer to Bank Account(Using MobileNumber)\n" +
                       "3. Transfer To a Mobile Wallet(Using MobileNumber)\n" +
                       "4. Inquire about Your balance\n" +
-                      "5. Paying utilities’ bills, where such bills can be for Gas, Electricity or Water." + "\n6)Exist.");
+                      "5. Paying utilities’ bills, where such bills can be for Gas, Electricity or Water.\n" +
+                      "6.Exit.");
 
       String option = super.input.enterYourOption();
-      if (!option.equals("1") && !option.equals("2") && !option.equals("3")
-              && !option.equals("4") && !option.equals("5") && !option.equals("6")) {
-        System.out.println("Please, Try again");
-        continue;
-      }
       Scanner scanner = new Scanner(System.in);
       switch (option) {
         case "1", "2", "3" -> {
@@ -91,7 +87,7 @@ public class UserOptionsView extends View {
           System.exit(0);
         }
         default -> {
-          System.out.println("Invalid Option");
+          System.out.println("Invalid Option. Please, Try again");
         }
       }
     }

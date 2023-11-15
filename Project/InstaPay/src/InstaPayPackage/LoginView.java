@@ -16,7 +16,7 @@ public class LoginView extends View {
       userOptionsView = new UserOptionsView(authentication.getMyInstapayAccount(account.getUsername()));
       userOptionsView.makeView();
     } else {
-      System.out.println("please try again\nYour password or username is wroung");
+      System.out.println("Please, Try again\nYour password or username is wrong");
     }
   }
 }

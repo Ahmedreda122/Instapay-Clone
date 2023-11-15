@@ -7,7 +7,7 @@ public class Main {
     InputUserData input = new InputUserData();
 
     while (true) {
-      System.out.println("1)Login\n2)Register\n3)Exist.");
+      System.out.println("1)Login\n2)Register\n3)Exit.");
       String op = input.enterYourOptionInMain();
       View c;
       if (op.equals("1")) {

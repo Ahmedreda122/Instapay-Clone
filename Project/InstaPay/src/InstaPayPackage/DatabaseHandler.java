@@ -12,7 +12,7 @@ public class DatabaseHandler {
   }
   //  method to insert instapay Account --> Register
   public void insertInstapayAccount(InstapayAccount account) throws SQLException {
-    String query = "INSERT INTO " + "InstaPayAccount" + " (username, password, accountType, mobileNumber) VALUES (?, ?, ?, ?)";
+    String query = "INSERT INTO InstaPayAccount (username, password, accountType, mobileNumber) VALUES (?, ?, ?, ?)";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, account.getUsername());
       preparedStatement.setString(2, account.getPassword());
@@ -71,8 +71,7 @@ public class DatabaseHandler {
 
 //  check if the phone number is registered before in InstaPayAccount table
   public boolean numPhoneIsRegistered(String numberPhone) throws SQLException {
-    String query = "SELECT COUNT(*) AS count FROM " + "InstaPayAccount" + " WHERE mobileNumber = ? ";
-//    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
+    String query = "SELECT COUNT(*) AS count FROM InstaPayAccount  WHERE mobileNumber = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, numberPhone);
       ResultSet resultSet = preparedStatement.executeQuery();
@@ -108,7 +107,7 @@ public class DatabaseHandler {
       preparedStatement.executeUpdate();
       return true;
     } catch (SQLException e) {
-//      System.out.println("mobileNumber Does not exist in Wallet\n" + e);
+//      System.out.println("mobileNumber Does not exist in + tablename + "\n" + e);
       return false;
     }
   }

@@ -37,11 +37,6 @@ public class UserOptions {
     return DB.updateBalance("BankAccount", money, mobileNumber) &&
             DB.updateBalance(myAccount.getType(), -money, myAccount.getNumberPhone());
   }
-//    for all cases
-//    public boolean Transfer(InstapayAccount AccountTo, double Money){
-//        return DB.updateBalance(AccountTo.getType(), Money, AccountTo.getNumberPhone()) &&
-//                DB.updateBalance(myAccount.getType(), -Money, myAccount.getNumberPhone());
-//    }
 
   public boolean AbilityToTransfer(double money) throws SQLException {
     return (getAccountBalance(myAccount) >= money) && money > 0;
@@ -58,9 +53,10 @@ public class UserOptions {
       return false;
     }
 
-    if (recipientAccount.getType().equals("Wallet")) {
+    String accountType = recipientAccount.getType();
+    if (accountType.equals("Wallet")) {
       return TransferToWallet(recipientAccount.getNumberPhone(), money);
-    } else if (recipientAccount.getType().equals("BankAccount") &&
+    } else if (accountType.equals("BankAccount") &&
             myAccount.getType().equals("BankAccount")) {
       return TransferToBankAcc(recipientAccount.getNumberPhone(), money);
     } else {
