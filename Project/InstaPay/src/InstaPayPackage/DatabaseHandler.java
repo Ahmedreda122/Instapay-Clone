@@ -71,11 +71,11 @@ public class DatabaseHandler {
   }
 
 //  check if the phone number is registered before in InstaPayAccount table
-  public boolean numPhoneIsRegistered(InstapayAccount account) throws SQLException {
+  public boolean numPhoneIsRegistered(String numberPhone) throws SQLException {
     String query = "SELECT COUNT(*) AS count FROM " + "InstaPayAccount" + " WHERE mobileNumber = ? ";
 //    String query = "SELECT COUNT(*) AS count FROM obj.Type WHERE mobileNumber = ? ";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-      preparedStatement.setString(1, account.getNumberPhone());
+      preparedStatement.setString(1, numberPhone);
       ResultSet resultSet = preparedStatement.executeQuery();
       if (resultSet.next()) {
         int count = resultSet.getInt("count");
@@ -124,7 +124,31 @@ public class DatabaseHandler {
       throw new RuntimeException(e);
     }
   }
-
+//  to get type of my instapay account
+  public String getType(String numberPhone){
+    String query = "SELECT accountType FROM InstaPayAccount WHERE mobileNumber = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setString(1, numberPhone);
+      ResultSet res = preparedStatement.executeQuery();
+      return res.getString("accountType");
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  public boolean checkTypeUsingNumber(String mobilePhone, String tableName){
+    String query = "SELECT COUNT(*) AS count FROM  " + tableName  + " WHERE mobileNumber = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+      preparedStatement.setString(1, mobilePhone);
+      ResultSet res = preparedStatement.executeQuery();
+      if(res.next()){
+        int count = res.getInt("count");
+                return (count == 1);
+      }
+      return  false;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
   private InstapayAccount retrieveAcc(PreparedStatement preparedStatement) throws SQLException {
     ResultSet resultSet = preparedStatement.executeQuery();
     int count = resultSet.getInt("count");

@@ -22,7 +22,7 @@ public class Authentication {
   //        this method to check in register ---> if number phone in wallet | in bank Account -->i sExistNumPhone
 //        we will check this number phone not registered before --> isNumPhoneRegistered
   public boolean verifyingAccount(InstapayAccount account) throws SQLException {
-    return databaseHandler.numPhoneUsedInAccount(account) && (!databaseHandler.numPhoneIsRegistered(account));
+    return databaseHandler.numPhoneUsedInAccount(account) && (!databaseHandler.numPhoneIsRegistered(account.getNumberPhone()));
   }
 
   //    this method call insert in database after validate everything

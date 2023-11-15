@@ -5,11 +5,10 @@ import java.util.Scanner;
 
 public class UserOptionsView extends View {
   private UserOptions userOptions;
-  public UserOptionsView(InstapayAccount account) {
+  public UserOptionsView(InstapayAccount account)throws SQLException {
     userOptions = new UserOptions(account);
     super.account = account;
   }
-
   @Override
   void makeView() throws SQLException {
     System.out.println(getAccount().getUsername() + " " + this.getAccount().getNumberPhone() + " "
@@ -41,23 +40,33 @@ public class UserOptionsView extends View {
             case 1 -> {
               System.out.println("Enter the Username of the Instapay account you want to transfer to: ");
               String userName = scanner.nextLine();
-              if (userOptions.Transfer(userName, money)) {
+              if (userOptions.Transfer(userName, money)  && userOptions.checkExistenceUser(userName)){
                 System.out.println("The Money has been Transferred Successfully :)");
               }
             }
             case 2 -> {
-              System.out.println("Enter the Mobile Number of the Bank Account you want to transfer to: ");
-              String mobileNumber = scanner.nextLine();
-              if (userOptions.TransferToBankAcc(mobileNumber, money)) {
-                System.out.println("The Money has been Transferred Successfully :)");
+             while(true){
+               System.out.println("Enter the Mobile Number of the Bank Account you want to transfer to: ");
+               String mobileNumber = scanner.nextLine();
+               if(!userOptions.checkTypeAccountWithMobileNumber(mobileNumber, "BankAccount") || account.getNumberPhone().equals(mobileNumber)){
+                 System.out.println("This number phone not for bankAccount. Try again");
+               }else{
+                  userOptions.TransferToBankAcc(mobileNumber, money);
+                  break;
+                }
               }
             }
             case 3 -> {
-              System.out.println("Enter the Mobile Number of the Wallet you want to transfer to: ");
-              String mobileNumber = scanner.nextLine();
-              if (userOptions.TransferToWallet(mobileNumber, money)) {
-                System.out.println("The Money has been Transferred Successfully :)");
-              }
+               while (true){
+                 System.out.println("Enter the Mobile Number of the Wallet you want to transfer to: ");
+                 String mobileNumber = scanner.nextLine();
+                 if(!userOptions.checkTypeAccountWithMobileNumber(mobileNumber, "Wallet") || account.getNumberPhone().equals(mobileNumber))
+                   System.out.println("This number phone not for Wallet. Try again");
+                 else{
+                   userOptions.TransferToWallet(mobileNumber, money);
+                   break;
+                 }
+               }
             }
           }
         }

@@ -35,6 +35,11 @@ public class InputUserData {
     input = scanner.nextLine();
     return input;
   }
+  public String enterYourOptionBillView(){
+    System.out.println("Enter Your Option (1-4):>");
+    input = scanner.nextLine();
+    return input;
+  }
 
   public String enterMoney() {
     System.out.println("Enter The Amount you want to Transfer: ");

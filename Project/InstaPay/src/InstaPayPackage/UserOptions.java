@@ -44,7 +44,7 @@ public class UserOptions {
 //    }
 
   public boolean AbilityToTransfer(double money) throws SQLException {
-    return !(getAccountBalance(myAccount) < money);
+    return (getAccountBalance(myAccount) >= money) && money > 0;
   }
 
   public void payBill(InstapayAccount account, double cost) {
@@ -72,4 +72,18 @@ public class UserOptions {
   public double getAccountBalance(InstapayAccount account) throws SQLException {
     return DB.retrieveBalance(account);
   }
+  public boolean checkTypeAccountWithMobileNumber(String mobile, String tableN){
+    return DB.checkTypeUsingNumber(mobile, tableN);
+  }
+//  chcek if this username is exist or no
+  public boolean checkExistenceUser(String username) throws SQLException{
+    return DB.userNameIsRegistered(username);
+  }
+////  check if this number phone is exist or no
+//  public  boolean numberPhoneIsExist(String numberPhone) throws SQLException {
+//    return DB.numPhoneIsRegistered(numberPhone);
+//  }
+//  public String getTypeAccount(String mobileNum){
+//    return DB.getType(mobileNum);
+//  }
 }

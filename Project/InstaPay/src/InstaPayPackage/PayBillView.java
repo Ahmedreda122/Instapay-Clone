@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public class PayBillView extends View {
   UserOptions userOptions;
 
-  public PayBillView(InstapayAccount account) {
+  public PayBillView(InstapayAccount account) throws SQLException{
     userOptions = new UserOptions(account);
     this.account = account;
   }
@@ -14,10 +14,12 @@ public class PayBillView extends View {
   void makeView() throws SQLException {
     String op;
     while (true) {
-      System.out.println("1.Water\n2.Gas\n3.Elec");
-      op = super.input.enterYourOption();
+      System.out.println("1.Water\n2.Gas\n3.Elec\n4)Exist.");
+      op = super.input.enterYourOptionBillView();
       if (op.equals("1") || op.equals("2") || op.equals("3")) {
         break;
+      }else if(op.equals("4")){
+        return;
       }
       System.out.println("Please, Try again");
     }
