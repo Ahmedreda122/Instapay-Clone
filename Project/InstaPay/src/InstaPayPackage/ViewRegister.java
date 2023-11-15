@@ -3,10 +3,9 @@ package InstaPayPackage;
 import java.sql.SQLException;
 
 public class ViewRegister extends View {
-  Authentication authentication;
+
 
   public ViewRegister() throws SQLException {
-    authentication = new Authentication();
   }
 
   @Override

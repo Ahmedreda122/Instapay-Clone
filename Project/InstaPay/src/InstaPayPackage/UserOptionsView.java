@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class UserOptionsView extends View {
   private UserOptions userOptions;
-
   public UserOptionsView(InstapayAccount account) {
     userOptions = new UserOptions(account);
     super.account = account;

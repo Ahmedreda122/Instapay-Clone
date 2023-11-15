@@ -109,7 +109,7 @@ public class DatabaseHandler {
       preparedStatement.executeUpdate();
       return true;
     } catch (SQLException e) {
-      System.out.println("mobileNumber Does not exist in Wallet\n" + e);
+//      System.out.println("mobileNumber Does not exist in Wallet\n" + e);
       return false;
     }
   }

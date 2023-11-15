@@ -6,10 +6,12 @@ public abstract class View {
   InstapayAccount account;
   InputUserData input;
   Account accountT;
+  protected Authentication authentication;
 
-  public View() {
+  public View() throws SQLException {
     input = new InputUserData();
     account = new InstapayAccount();
+    authentication = new Authentication();
   }
 
   public void setAccount(InstapayAccount account) {
