@@ -29,7 +29,7 @@ public class DatabaseHandler {
       preparedStatement.setString(1, account.getNumberPhone());
 
       ResultSet resultSet = preparedStatement.executeQuery();
-      return resultSet.getInt("balance");
+      return resultSet.getDouble("balance");
     }
   }
 
