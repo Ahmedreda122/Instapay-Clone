@@ -10,7 +10,6 @@ public class DatabaseHandler {
     String jdbcUrl = "jdbc:sqlite:" + "instapay.db";
     this.connection = DriverManager.getConnection(jdbcUrl);
   }
-
   //  method to insert instapay Account --> Register
   public void insertInstapayAccount(InstapayAccount account) throws SQLException {
     String query = "INSERT INTO " + "InstaPayAccount" + " (username, password, accountType, mobileNumber) VALUES (?, ?, ?, ?)";
