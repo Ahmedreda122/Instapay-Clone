@@ -21,7 +21,7 @@ public class DatabaseHandler {
       preparedStatement.executeUpdate();
     }
   }
-
+//  remove this
   // Method to retrieve a Balance
   public double retrieveBalance(InstapayAccount account) throws SQLException {
     String query = "SELECT balance FROM " + account.getType() + " WHERE mobileNumber = ?";
@@ -97,7 +97,7 @@ public class DatabaseHandler {
       }
       return false;
     }
-  }
+  }//  remove this
   // updating balance by increasing/decreasing
   public boolean updateBalance(String tableName, double amount, String mobileNumber) {
     String query = "UPDATE " + tableName + " SET balance = balance + ? WHERE mobileNumber = ?";
@@ -133,6 +133,7 @@ public class DatabaseHandler {
       throw new RuntimeException(e);
     }
   }
+  //  remove this
   public boolean checkTypeUsingNumber(String mobilePhone, String tableName){
     String query = "SELECT COUNT(*) AS count FROM  " + tableName  + " WHERE mobileNumber = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

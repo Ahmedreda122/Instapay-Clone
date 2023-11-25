@@ -4,11 +4,13 @@ import java.sql.SQLException;
 
 public class UserOptions {
   private DatabaseHandler DB;
+  private APIS api;
   private InstapayAccount myAccount;
   private Bill bill;
 
-  public UserOptions(InstapayAccount account) {
+  public UserOptions(InstapayAccount account) throws SQLException {
     this.myAccount = account;
+    api = new APIS();
     try {
       DB = new DatabaseHandler();
     } catch (SQLException e) {
