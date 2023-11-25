@@ -26,6 +26,7 @@ public class Main {
     }
   }
 }
+//tyty
 // enter password with patter digits not less than 5 + not less than special char + not less than 2 char
 // 909090as###
 // 01112223152
