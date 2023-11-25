@@ -21,7 +21,7 @@ public class InternalDB {
         }
     }
     public double retrieveBalance(String mobilePhone, String accountType) throws SQLException {
-        String query = "SELECT balance FROM BankAccount WHERE mobileNumber = ?";
+        String query = "SELECT balance FROM " + accountType + " WHERE mobileNumber = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, mobilePhone);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -36,7 +36,6 @@ public class InternalDB {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-//      System.out.println("mobileNumber Does not exist in + tablename + "\n" + e);
             return false;
         }
     }

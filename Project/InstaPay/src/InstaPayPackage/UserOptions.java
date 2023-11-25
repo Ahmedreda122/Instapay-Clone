@@ -17,7 +17,6 @@ public class UserOptions {
       throw new RuntimeException(e);
     }
   }
-
   InstapayAccount getMyAccount() {
     return myAccount;
   }
@@ -30,17 +29,20 @@ public class UserOptions {
     this.bill = bill;
   }
 
-  public boolean TransferToWallet(String mobileNumber, double money) {
-    return DB.updateBalance("Wallet", money, mobileNumber) &&
-            DB.updateBalance(myAccount.getType(), -money, myAccount.getNumberPhone());
+  public boolean TransferToWallet(String mobileNumber, double money) throws SQLException {
+    return api.RequestToWithdrawFromMyAccount(money, mobileNumber, "Wallet") &&
+            api.RequestToWithdrawFromMyAccount(-money,myAccount.getNumberPhone() , myAccount.getType());
   }
 
-  public boolean TransferToBankAcc(String mobileNumber, double money) {
-    return DB.updateBalance("BankAccount", money, mobileNumber) &&
-            DB.updateBalance(myAccount.getType(), -money, myAccount.getNumberPhone());
+  public boolean TransferToBankAcc(String mobileNumber, double money) throws SQLException{
+    return api.RequestToWithdrawFromMyAccount(money, mobileNumber, "BankAccount") &&
+            api.RequestToWithdrawFromMyAccount(-money, myAccount.getNumberPhone(), myAccount.getType());
   }
 
   public boolean AbilityToTransfer(double money) throws SQLException {
+    System.out.println("IN userOptions");
+    System.out.println("balace : " + getAccountBalance(myAccount));
+    System.out.println("MYAccount : " + myAccount.getNumberPhone() + " " + myAccount.getType() + " " + myAccount.getNumberPhone());
     return (getAccountBalance(myAccount) >= money) && money > 0;
   }
 
@@ -48,7 +50,7 @@ public class UserOptions {
     DB.updateBalance(account.getType(), cost, account.getNumberPhone());
   }
 
-  public boolean Transfer(String userName, double money) {
+  public boolean Transfer(String userName, double money) throws SQLException{
     InstapayAccount recipientAccount = DB.getInstapayAcc(userName);
     if (recipientAccount == null) {
       System.out.println("This userName is not Exist");
@@ -68,11 +70,13 @@ public class UserOptions {
   }
 
   public double getAccountBalance(InstapayAccount account) throws SQLException {
-    return DB.retrieveBalance(account);
+    return api.getBalance(account.getNumberPhone(), account.getType());
   }
-  public boolean checkTypeAccountWithMobileNumber(String mobile, String tableN){
-    return DB.checkTypeUsingNumber(mobile, tableN);
+  public boolean checkTypeAccountWithMobileNumber(String mobile, String tableN)  throws SQLException{
+    return api.mobilePhoneIsExist(mobile, tableN);
   }
+
+//  instapay account
 //  chcek if this username is exist or no
   public boolean checkExistenceUser(String username) throws SQLException{
     return DB.userNameIsRegistered(username);
